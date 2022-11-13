@@ -9,7 +9,7 @@ app.use(cors());
 let activities = [
 	{
 		"notifid": 1,
-		"avi": "../images/avatar-mark-webber.webp",
+		"avi": "images/avatar-mark-webber.webp",
 		"name": "Mark Webber",
 		"activity": "Reacted",
 		"target": "My first tournament today!",
@@ -19,7 +19,7 @@ let activities = [
 	},
 	{
 		"notifid": 2,
-		"avi": "../images/avatar-angela-gray.webp",
+		"avi": "images/avatar-angela-gray.webp",
 		"name": "Angela Gray",
 		"activity": "Followed",
 		"target": "you",
@@ -30,7 +30,7 @@ let activities = [
 	},
 	{
 		"notifid": 3,
-		"avi": "../images/avatar-jacob-thompson.webp",
+		"avi": "images/avatar-jacob-thompson.webp",
 		"name": "Jacob Thompson",
 		"activity": "JoinedGroup",
 		"target": "Chess Club",
@@ -40,7 +40,7 @@ let activities = [
 	},
 	{
 		"notifid": 4,
-		"avi": "../images/avatar-rizky-hasanuddin.webp",
+		"avi": "images/avatar-rizky-hasanuddin.webp",
 		"name": "Rizky Hasanuddin",
 		"activity": "PrivateMessage",
 		"target": "you",
@@ -50,7 +50,7 @@ let activities = [
 	},
 	{
 		"notifid": 5,
-		"avi": "../images/avatar-kimberly-smith.webp",
+		"avi": "images/avatar-kimberly-smith.webp",
 		"name": "Kimberly Smith",
 		"activity": "Commented",
 		"target": "your picture",
@@ -60,7 +60,7 @@ let activities = [
 	},
 	{
 		"notifid": 6,
-		"avi": "../images/avatar-nathan-peterson.webp",
+		"avi": "images/avatar-nathan-peterson.webp",
 		"name": "Nathan Peterson",
 		"activity": "Reacted",
 		"target": "5 end-game strategies to increase your win rate",
@@ -70,7 +70,7 @@ let activities = [
 	},
 	{
 		"notifid": 7,
-		"avi": "../images/avatar-anna-kim.webp",
+		"avi": "images/avatar-anna-kim.webp",
 		"name": "Anna Kim",
 		"activity": "LeftGroup",
 		"target": "Chess Club",
