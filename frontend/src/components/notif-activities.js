@@ -1,77 +1,90 @@
 import React from 'react'
+import { GeneralNotification, GeneralNotificationContent, AviNotification, AviImage, PrivateMessageNotification } from '../App-styles'
 
 
 export const Reacted = ({ name, target, time, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile" ></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} reacted to your recent post {target}</div>
 				<div>{time}</div>
-			</div>
-		</div>
+			</GeneralNotificationContent>
+		</GeneralNotification>
 	)
 }
 
 export const Followed = ({ name, target, time, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile"></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} followed {target}</div>
 				<div>{time}</div>
-			</div>
-		</div>
+			</GeneralNotificationContent>
+		</GeneralNotification>
 	)
 }
 
 export const JoinedGroup = ({ name, target, time, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile"></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} has joined your group {target}</div>
 				<div>{time}</div>
-			</div>
-		</div>
+			</GeneralNotificationContent>
+		</GeneralNotification>
 	)
 }
 
 export const PrivateMessage = ({ name, target, time, message, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile"></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} sent {target} a private message</div>
 				<div>{time}</div>
-				<div>{message}</div>
-			</div>
-		</div>
+				<PrivateMessageNotification>{message}</PrivateMessageNotification>
+			</GeneralNotificationContent>
+		</GeneralNotification>
 	)
 }
 
 export const Commented = ({ name, target, time, img, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile"></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} commented on {target}</div>
 				<div>{time}</div>
 				<div><img src={img} alt=""></img></div>
-			</div >
-		</div>
+			</GeneralNotificationContent >
+		</GeneralNotification>
 	)
 }
 
 export const LeftGroup = ({ name, target, time, img, avi }) => {
 	return (
-		<div>
-			<div><img src={avi} alt="profile"></img></div>
-			<div>
+		<GeneralNotification>
+			<AviNotification>
+				<AviImage src={avi} alt="profile"></AviImage>
+			</AviNotification>
+			<GeneralNotificationContent>
 				<div>{name} left the group {target}</div>
 				<div>{time}</div>
-			</div>
-		</div>
+			</GeneralNotificationContent>
+		</GeneralNotification>
 	)
 }
 
@@ -98,8 +111,8 @@ export const MyRenderer = ({
 	activitiesData }) => {
 
 	return (
-		<div>
+		<>
 			{activitiesData.map(data => <NotificationList data={data} key={data.notifid} />)}
-		</div>
+		</>
 	)
 }

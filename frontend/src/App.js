@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { MyRenderer } from './components/notif-activities';
 import './App.css';
-import { MainNotificationBox } from './App-styles';
+import { HeaderNotification, MainNotificationBox } from './App-styles';
 
 
 
@@ -24,6 +24,14 @@ function App() {
 
 	return (
 		<MainNotificationBox>
+			<HeaderNotification>
+				<div>
+					<div>Notifications</div>
+					<div>NotifNumber</div>
+				</div>
+				<p>Mark all as read</p>
+			</HeaderNotification>
+
 			<MyRenderer activitiesData={activitiesData} />
 		</MainNotificationBox>
 	);
