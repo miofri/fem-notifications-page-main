@@ -7,13 +7,13 @@ import { MyRenderer } from './components/notif-activities';
 import './App.css';
 import { HeaderNotification, MainNotificationBox } from './App-styles';
 
-
+const baseUrl = 'http://localhost:3001/api/activities'
 
 function App() {
 	const [activitiesData, setActivitiesData] = useState([]);
 
 	useEffect(() => {
-		axios.get('http://localhost:3001/api/activities')
+		axios.get(baseUrl)
 			.then(response => {
 				console.log('promise fulfilled');
 				setActivitiesData(response.data);
