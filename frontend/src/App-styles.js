@@ -43,7 +43,7 @@ export const AviImage = styled.img`
 // the container of AviImage
 export const AviNotification = styled.div`
 	width: 50px;
-	margin: 18px
+	margin: 18px;
 `
 
 // images attached to a post; e.g. in a commented post
@@ -64,7 +64,20 @@ export const PrivateMessageNotification = styled.div`
 	border-color: hsl(205, 33%, 90%);
 	border-width: 1px;
 `
-
+// styling for each Name in notification
 export const NameFormat = styled.span`
+	font-weight: 800;
+	color: #2b2f32;
+`
+export const ReactedPostFormat = styled.span`
+	font-weight: 800;
+	color: #70757d;
+	`
+
+export const DateFormat = styled.span`
+	color: #bdc0c7;
+`
+export const GroupFormat = styled.span`
+	color: #3d4d69;
 	font-weight: 800;
 `
