@@ -5,9 +5,25 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { MyRenderer } from './components/notif-activities';
 import './App.css';
-import { HeaderNotification, MainNotificationBox } from './App-styles';
+import { HeaderNotification, MainNotificationBox, NameFormat, NotifHeader, NotifHeaderWrapper, NotifNumber } from './App-styles';
 
 const baseUrl = 'http://localhost:3001/api/activities'
+
+// small function to count the amount of unread notificiation
+const countUnread = ({ activitiesData }) => {
+	let i = 0;
+	activitiesData.forEach(element => {
+		if (element.read === "false")
+			i++;
+	});
+	return i;
+};
+
+const MarkAllAsRead = () => {
+	return (
+		<div>Mark all as read</div>
+	)
+}
 
 function App() {
 	const [activitiesData, setActivitiesData] = useState([]);
@@ -20,16 +36,18 @@ function App() {
 			})
 	}, [])
 
-	console.log(activitiesData);
+	console.log(typeof activitiesData);
+
+	let len = countUnread({ activitiesData });
 
 	return (
 		<MainNotificationBox>
 			<HeaderNotification>
-				<div>
-					<div>Notifications</div>
-					<div>NotifNumber</div>
-				</div>
-				<p>Mark all as read</p>
+				<NotifHeaderWrapper>
+					<NotifHeader>Notifications</NotifHeader>
+					<NotifNumber>{len}</NotifNumber>
+				</NotifHeaderWrapper>
+				<MarkAllAsRead />
 			</HeaderNotification>
 
 			<MyRenderer activitiesData={activitiesData} />

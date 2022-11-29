@@ -1,10 +1,18 @@
 import React from 'react'
 import { GeneralNotification, GeneralNotificationContent, AviNotification, AviImage, PrivateMessageNotification, AttachedImage, NameFormat, ReactedPostFormat, DateFormat, GroupFormat } from '../App-styles'
 
+const readStatus = (read) => {
+	if (read === "true")
+		return true;
+	else
+		return false;
+}
 
-export const Reacted = ({ name, target, time, avi }) => {
+export const Reacted = ({ name, target, time, avi, read }) => {
+	let readBool = readStatus(read);
+
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 			<AviNotification>
 				<AviImage src={avi} alt="profile" ></AviImage>
 			</AviNotification>
@@ -19,9 +27,11 @@ export const Reacted = ({ name, target, time, avi }) => {
 	)
 }
 
-export const Followed = ({ name, target, time, avi }) => {
+export const Followed = ({ name, target, time, avi, read }) => {
+	let readBool = readStatus(read);
+
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
 			</AviNotification>
@@ -36,9 +46,11 @@ export const Followed = ({ name, target, time, avi }) => {
 	)
 }
 
-export const PrivateMessage = ({ name, target, time, message, avi }) => {
+export const PrivateMessage = ({ name, target, time, message, avi, read }) => {
+	let readBool = readStatus(read);
+
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
@@ -58,9 +70,11 @@ export const PrivateMessage = ({ name, target, time, message, avi }) => {
 	)
 }
 
-export const Commented = ({ name, target, time, img, avi }) => {
+export const Commented = ({ name, target, time, img, avi, read }) => {
+	let readBool = readStatus(read);
+
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
@@ -82,9 +96,11 @@ export const Commented = ({ name, target, time, img, avi }) => {
 	)
 }
 
-export const JoinedGroup = ({ name, target, time, avi }) => {
+export const JoinedGroup = ({ name, target, time, avi, read }) => {
+	let readBool = readStatus(read);
+
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
 			</AviNotification>
@@ -99,9 +115,10 @@ export const JoinedGroup = ({ name, target, time, avi }) => {
 	)
 }
 
-export const LeftGroup = ({ name, target, time, img, avi }) => {
+export const LeftGroup = ({ name, target, time, img, avi, read }) => {
+	let readBool = readStatus(read);
 	return (
-		<GeneralNotification>
+		<GeneralNotification $read={readBool}>
 
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
@@ -132,7 +149,7 @@ export const NotificationList = ({ data }) => {
 	// pass useState for bgcolor?
 	return (
 		<div>
-			<MyComponent name={data.name} target={data.target} time={data.time} message={data.message} img={data.img} avi={data.avi} />
+			<MyComponent name={data.name} target={data.target} time={data.time} message={data.message} img={data.img} avi={data.avi} read={data.read} />
 		</div>
 	)
 }

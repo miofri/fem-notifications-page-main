@@ -15,7 +15,8 @@ let activities = [
 		"target": "My first tournament today!",
 		"message": "",
 		"time": "1m ago",
-		"img": ""
+		"img": "",
+		"read": "false"
 	},
 	{
 		"notifid": 2,
@@ -25,7 +26,8 @@ let activities = [
 		"target": "you",
 		"message": "",
 		"time": "5m ago",
-		"img": ""
+		"img": "",
+		"read": "false"
 
 	},
 	{
@@ -36,7 +38,9 @@ let activities = [
 		"target": "Chess Club",
 		"message": "",
 		"time": "1 day ago",
-		"img": ""
+		"img": "",
+		"read": "false"
+
 	},
 	{
 		"notifid": 4,
@@ -46,7 +50,9 @@ let activities = [
 		"target": "you",
 		"message": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
 		"time": "5 days ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	},
 	{
 		"notifid": 5,
@@ -56,7 +62,8 @@ let activities = [
 		"target": "your picture",
 		"message": "",
 		"time": "1 weeks ago",
-		"img": "images/image-chess.webp"
+		"img": "images/image-chess.webp",
+		"read": "true"
 	},
 	{
 		"notifid": 6,
@@ -66,7 +73,9 @@ let activities = [
 		"target": "5 end-game strategies to increase your win rate",
 		"message": "",
 		"time": "2 weeks ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	},
 	{
 		"notifid": 7,
@@ -76,7 +85,9 @@ let activities = [
 		"target": "Chess Club",
 		"message": "",
 		"time": "2 weeks ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	}
 ];
 
