@@ -1,18 +1,40 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 import { GeneralNotification, GeneralNotificationContent, AviNotification, AviImage, PrivateMessageNotification, AttachedImage, NameFormat, ReactedPostFormat, DateFormat, GroupFormat } from '../App-styles'
 
+const baseUrl = 'http://localhost:3001/api/activities'
+
 const readStatus = (read) => {
-	if (read === "true")
+	if (read === "true") {
 		return true;
+	}
 	else
 		return false;
 }
 
-export const Reacted = ({ name, target, time, avi, read }) => {
-	let readBool = readStatus(read);
+const Clicked = (data, readBool) => {
+	if (data.read === 'true') {
+		return readBool
+	}
+	else {
+		const updatedNotif = { ...data, read: 'true' }
+		console.log('data', data)
+		console.log('this is updated notif', updatedNotif)
+		axios.put(`${baseUrl}/${data.id}`, updatedNotif)
+		// window.location.reload(false);
+		readBool = true
+		return readBool
+	}
+}
+
+export const Reacted = ({ name, target, time, avi, read, data }) => {
+	console.log(read)
+	let readBool = readStatus(read)
+	const [t, setT] = useState(readBool)
+	console.log(readBool)
 
 	return (
-		<GeneralNotification $read={readBool}>
+		<GeneralNotification onClick={() => { Clicked(data, readBool); setT(true) }} $read={readBool}>
 			<AviNotification>
 				<AviImage src={avi} alt="profile" ></AviImage>
 			</AviNotification>
@@ -27,11 +49,11 @@ export const Reacted = ({ name, target, time, avi, read }) => {
 	)
 }
 
-export const Followed = ({ name, target, time, avi, read }) => {
-	let readBool = readStatus(read);
+export const Followed = ({ data, name, target, time, avi, read }) => {
+	let readBool = readStatus(read)
 
 	return (
-		<GeneralNotification $read={readBool}>
+		<GeneralNotification onClick={() => Clicked(data, readBool)} $read={readBool}>
 			<AviNotification>
 				<AviImage src={avi} alt="profile"></AviImage>
 			</AviNotification>
@@ -144,18 +166,18 @@ const components = {
 	Followed: Followed
 }
 
-export const NotificationList = ({ data }) => {
+export const NotificationList = ({ data, rerender }) => {
 	let MyComponent = components[data.activity]
-	// pass useState for bgcolor?
+
 	return (
-		<div>
-			<MyComponent name={data.name} target={data.target} time={data.time} message={data.message} img={data.img} avi={data.avi} read={data.read} />
-		</div>
+		<>
+			<MyComponent data={data} name={data.name} target={data.target} time={data.time} message={data.message} img={data.img} avi={data.avi} read={data.read} />
+		</>
 	)
 }
 
 export const MyRenderer = ({
-	activitiesData }) => {
+	activitiesData, rerender }) => {
 
 	return (
 		<>
@@ -163,3 +185,14 @@ export const MyRenderer = ({
 		</>
 	)
 }
+
+/*
+<MyRenderer>
+	<NotificationList>
+		<MyComponent e.g.Reacted></MyComponent>
+		<MyComponent e.g.LeftGroup></MyComponent>
+		<MyComponent e.g.Followed></MyComponent>
+	</NotificationList>
+	...
+</MyRenderer>
+*/

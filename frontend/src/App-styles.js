@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 
-// for Notification, NotifNumber and Mark all as read
+/* Notification's Header */
+
+// parent of "Notifications", NotifNumber and Mark all as read
 export const HeaderNotification = styled.div`
 	margin: 10px 30px ;
 	display: flex;
@@ -9,12 +11,13 @@ export const HeaderNotification = styled.div`
 	padding-top: 20px;
 	padding-bottom: 20px;
 `
+// for the div containing "Notifications"
 export const NotifHeader = styled.div`
 	font-weight: 800;
 	font-size: 24px;
 	margin-right: 12px;
 `
-
+// for the div containing number of notifications next to "Notifications"
 export const NotifNumber = styled(NotifHeader)`
 	width: 32px;
 	background-color: #063578;
@@ -24,10 +27,16 @@ export const NotifNumber = styled(NotifHeader)`
 	padding-top: 4px;
 	border-radius: 15%;
 `
+// parent of "Notificatins"/NotifHeader & NotifNumber
 export const NotifHeaderWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 `
+
+
+
+/* Actual Notifications */
+
 // for the parent container of all notification (light blue when unread)
 export const MainNotificationBox = styled.div`
 	margin: 48px auto 48px auto;
@@ -43,6 +52,7 @@ export const GeneralNotification = styled.div`
 	margin: 10px 30px ;
 	border-radius: 18px;
 	display: flex;
+
 `
 
 // the div that contains the name & time. Might also contain PrivateMessageNotification and associated image, depending on the activity.
@@ -84,7 +94,11 @@ export const PrivateMessageNotification = styled.div`
 	border-color: hsl(205, 33%, 90%);
 	border-width: 1px;
 `
-// styling for each differently-highligted texts in notifications, for example, names have to be bolded, posts have to have grey color, etc.
+
+
+
+/* styling for each differently-highligted texts in notifications, for example, names have to be bolded, posts have to have grey color, etc. */
+
 export const NameFormat = styled.span`
 	font-weight: 800;
 	color: #2b2f32;
@@ -92,8 +106,7 @@ export const NameFormat = styled.span`
 export const ReactedPostFormat = styled.span`
 	font-weight: 800;
 	color: #70757d;
-	`
-
+`
 export const DateFormat = styled.span`
 	color: #bdc0c7;
 `

@@ -25,6 +25,8 @@ const MarkAllAsRead = () => {
 	)
 }
 
+let rerender = 1;
+
 function App() {
 	const [activitiesData, setActivitiesData] = useState([]);
 
@@ -32,11 +34,11 @@ function App() {
 		axios.get(baseUrl)
 			.then(response => {
 				console.log('promise fulfilled');
-				setActivitiesData(response.data);
+				return setActivitiesData(response.data);
 			})
 	}, [])
 
-	console.log(typeof activitiesData);
+	console.log(activitiesData[0]);
 
 	let len = countUnread({ activitiesData });
 

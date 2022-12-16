@@ -2,101 +2,35 @@ const express = require('express');
 const app = express();
 const nodemon = require('nodemon');
 const cors = require('cors');
+const mongoose = require('mongoose');
+const Notif = require('./models/notif');
+const { response } = require('express');
 
 app.use(express.json());
 app.use(cors());
 
-let activities = [
-	{
-		"notifid": 1,
-		"avi": "images/avatar-mark-webber.webp",
-		"name": "Mark Webber",
-		"activity": "Reacted",
-		"target": "My first tournament today!",
-		"message": "",
-		"time": "1m ago",
-		"img": "",
-		"read": "false"
-	},
-	{
-		"notifid": 2,
-		"avi": "images/avatar-angela-gray.webp",
-		"name": "Angela Gray",
-		"activity": "Followed",
-		"target": "you",
-		"message": "",
-		"time": "5m ago",
-		"img": "",
-		"read": "false"
-
-	},
-	{
-		"notifid": 3,
-		"avi": "images/avatar-jacob-thompson.webp",
-		"name": "Jacob Thompson",
-		"activity": "JoinedGroup",
-		"target": "Chess Club",
-		"message": "",
-		"time": "1 day ago",
-		"img": "",
-		"read": "false"
-
-	},
-	{
-		"notifid": 4,
-		"avi": "images/avatar-rizky-hasanuddin.webp",
-		"name": "Rizky Hasanuddin",
-		"activity": "PrivateMessage",
-		"target": "you",
-		"message": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
-		"time": "5 days ago",
-		"img": "",
-		"read": "true"
-
-	},
-	{
-		"notifid": 5,
-		"avi": "images/avatar-kimberly-smith.webp",
-		"name": "Kimberly Smith",
-		"activity": "Commented",
-		"target": "your picture",
-		"message": "",
-		"time": "1 weeks ago",
-		"img": "images/image-chess.webp",
-		"read": "true"
-	},
-	{
-		"notifid": 6,
-		"avi": "images/avatar-nathan-peterson.webp",
-		"name": "Nathan Peterson",
-		"activity": "Reacted",
-		"target": "5 end-game strategies to increase your win rate",
-		"message": "",
-		"time": "2 weeks ago",
-		"img": "",
-		"read": "true"
-
-	},
-	{
-		"notifid": 7,
-		"avi": "images/avatar-anna-kim.webp",
-		"name": "Anna Kim",
-		"activity": "LeftGroup",
-		"target": "Chess Club",
-		"message": "",
-		"time": "2 weeks ago",
-		"img": "",
-		"read": "true"
-
-	}
-];
+mongoose.connect(process.env.URL)
 
 app.get('/', (request, response) => {
 	response.send("Welcome to notifications page!");
 })
 
 app.get('/api/activities', (request, response) => {
-	response.send(activities);
+	Notif.find({}).then(notifs => response.json(notifs))
+})
+
+app.put('/api/activities/:id', (request, response, next) => {
+	const body = request.body
+
+	Notif.findByIdAndUpdate(request.params.id, body, { new: true })
+		.then(notif => {
+			if (notif) {
+				response.json(notif)
+			}
+			else
+				response.status(404).end()
+		})
+		.catch(error => next(error))
 })
 
 const PORT = 3001;

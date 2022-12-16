@@ -1,6 +1,8 @@
 // This file was used to populate MongoDB with its initial data.
 
+require('dotenv').config()
 const mongoose = require('mongoose');
+const Notif = require('./notif')
 
 let activities = [
 	{
@@ -11,7 +13,8 @@ let activities = [
 		"target": "My first tournament today!",
 		"message": "",
 		"time": "1m ago",
-		"img": ""
+		"img": "",
+		"read": "false"
 	},
 	{
 		"notifid": 2,
@@ -21,7 +24,8 @@ let activities = [
 		"target": "you",
 		"message": "",
 		"time": "5m ago",
-		"img": ""
+		"img": "",
+		"read": "false"
 
 	},
 	{
@@ -32,7 +36,9 @@ let activities = [
 		"target": "Chess Club",
 		"message": "",
 		"time": "1 day ago",
-		"img": ""
+		"img": "",
+		"read": "false"
+
 	},
 	{
 		"notifid": 4,
@@ -42,7 +48,9 @@ let activities = [
 		"target": "you",
 		"message": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
 		"time": "5 days ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	},
 	{
 		"notifid": 5,
@@ -52,7 +60,8 @@ let activities = [
 		"target": "your picture",
 		"message": "",
 		"time": "1 weeks ago",
-		"img": "images/image-chess.webp"
+		"img": "images/image-chess.webp",
+		"read": "true"
 	},
 	{
 		"notifid": 6,
@@ -62,7 +71,9 @@ let activities = [
 		"target": "5 end-game strategies to increase your win rate",
 		"message": "",
 		"time": "2 weeks ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	},
 	{
 		"notifid": 7,
@@ -72,32 +83,17 @@ let activities = [
 		"target": "Chess Club",
 		"message": "",
 		"time": "2 weeks ago",
-		"img": ""
+		"img": "",
+		"read": "true"
+
 	}
 ];
 
-if (process.argv.length < 3) {
-	console.log('Please provide the password as an argument: node mongo.js <password>')
-	process.exit(1)
-}
 
-const password = process.argv[2];
-
-const url = `mongodb+srv://slvkesuma:1234@cluster0.smqtqch.mongodb.net/NotifApp?retryWrites=true&w=majority`
-
-const notifSchema = new mongoose.Schema({
-	notifid: String,
-	avi: String,
-	name: String,
-	activity: String,
-	target: String,
-	message: String,
-	time: String,
-})
-
-const Notif = mongoose.model('Notif', notifSchema);
+const url = process.env.URL
 
 const adding = async () => {
+	console.log('populating')
 	for await (const element of activities) {
 		const notif = new Notif({
 			notifid: element.notifid,
@@ -107,19 +103,27 @@ const adding = async () => {
 			target: element.target,
 			message: element.message,
 			time: element.time,
+			read: element.read,
 		})
 		await notif.save();
 	}
+	console.log('done populating')
+
 }
 
 mongoose
 	.connect(url)
-	.then(async () => {
-		console.log('connected');
-		await adding()
-		return
+	.then(() => {
+		if (process.argv[2] === 'remove') {
+			console.log('removing')
+			return Notif.deleteMany({})
+		}
 	})
 	.then(() => {
-		mongoose.connection.close()
+		return adding()
+	})
+	.then(() => {
+		return mongoose.connection.close()
 	})
 	.catch((err) => console.log(err));
+
