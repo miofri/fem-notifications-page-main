@@ -14,7 +14,7 @@ let activities = [
 		"message": "",
 		"time": "1m ago",
 		"img": "",
-		"read": "false"
+		"read": false
 	},
 	{
 		"notifid": 2,
@@ -25,7 +25,7 @@ let activities = [
 		"message": "",
 		"time": "5m ago",
 		"img": "",
-		"read": "false"
+		"read": false
 
 	},
 	{
@@ -37,7 +37,7 @@ let activities = [
 		"message": "",
 		"time": "1 day ago",
 		"img": "",
-		"read": "false"
+		"read": false
 
 	},
 	{
@@ -49,7 +49,7 @@ let activities = [
 		"message": "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game.",
 		"time": "5 days ago",
 		"img": "",
-		"read": "true"
+		"read": true
 
 	},
 	{
@@ -61,7 +61,7 @@ let activities = [
 		"message": "",
 		"time": "1 weeks ago",
 		"img": "images/image-chess.webp",
-		"read": "true"
+		"read": true
 	},
 	{
 		"notifid": 6,
@@ -72,7 +72,7 @@ let activities = [
 		"message": "",
 		"time": "2 weeks ago",
 		"img": "",
-		"read": "true"
+		"read": true
 
 	},
 	{
@@ -84,7 +84,7 @@ let activities = [
 		"message": "",
 		"time": "2 weeks ago",
 		"img": "",
-		"read": "true"
+		"read": true
 
 	}
 ];
@@ -104,6 +104,7 @@ const adding = async () => {
 			message: element.message,
 			time: element.time,
 			read: element.read,
+			img: element.img,
 		})
 		await notif.save();
 	}

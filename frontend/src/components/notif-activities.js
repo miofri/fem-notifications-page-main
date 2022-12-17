@@ -4,184 +4,135 @@ import { GeneralNotification, GeneralNotificationContent, AviNotification, AviIm
 
 const baseUrl = 'http://localhost:3001/api/activities'
 
-const readStatus = (read) => {
-	if (read === "true") {
-		return true;
-	}
-	else
-		return false;
-}
-
-const Clicked = (data, readBool) => {
-	if (data.read === 'true') {
-		return readBool
-	}
-	else {
-		const updatedNotif = { ...data, read: 'true' }
-		console.log('data', data)
-		console.log('this is updated notif', updatedNotif)
-		axios.put(`${baseUrl}/${data.id}`, updatedNotif)
-		// window.location.reload(false);
-		readBool = true
-		return readBool
-	}
-}
-
-export const Reacted = ({ name, target, time, avi, read, data }) => {
-	console.log(read)
-	let readBool = readStatus(read)
-	const [t, setT] = useState(readBool)
-	console.log(readBool)
-
-	return (
-		<GeneralNotification onClick={() => { Clicked(data, readBool); setT(true) }} $read={readBool}>
-			<AviNotification>
-				<AviImage src={avi} alt="profile" ></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent>
-				<div>
-					<NameFormat>{name}</NameFormat> reacted to your recent post <ReactedPostFormat>{target}</ReactedPostFormat>
-				</div>
-				<div><DateFormat>{time}</DateFormat></div>
-			</GeneralNotificationContent>
-		</GeneralNotification>
-	)
-}
-
-export const Followed = ({ data, name, target, time, avi, read }) => {
-	let readBool = readStatus(read)
-
-	return (
-		<GeneralNotification onClick={() => Clicked(data, readBool)} $read={readBool}>
-			<AviNotification>
-				<AviImage src={avi} alt="profile"></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent>
-				<div>
-					<NameFormat>{name}</NameFormat> followed {target}
-				</div>
-				<div><DateFormat>{time}</DateFormat></div>
-			</GeneralNotificationContent>
-		</GeneralNotification>
-	)
-}
-
-export const PrivateMessage = ({ name, target, time, message, avi, read }) => {
-	let readBool = readStatus(read);
-
-	return (
-		<GeneralNotification $read={readBool}>
-
-			<AviNotification>
-				<AviImage src={avi} alt="profile"></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent>
-				<div>
-					<NameFormat>{name}</NameFormat> sent {target} a private message
-				</div>
-				<div><DateFormat>{time}</DateFormat></div>
-				<PrivateMessageNotification>
-					{message}
-				</PrivateMessageNotification>
-			</GeneralNotificationContent>
-
-		</GeneralNotification>
-	)
-}
-
-export const Commented = ({ name, target, time, img, avi, read }) => {
-	let readBool = readStatus(read);
-
-	return (
-		<GeneralNotification $read={readBool}>
-
-			<AviNotification>
-				<AviImage src={avi} alt="profile"></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent attachedimage>
-				<div>
-					<div>
-						<NameFormat>{name}</NameFormat> commented on {target}
-					</div>
-					<div><DateFormat>{time}</DateFormat></div>
-				</div>
-				<AttachedImage>
-					<AviImage src={img} alt=""></AviImage>
-				</AttachedImage>
-			</GeneralNotificationContent >
-
-		</GeneralNotification>
-	)
-}
-
-export const JoinedGroup = ({ name, target, time, avi, read }) => {
-	let readBool = readStatus(read);
-
-	return (
-		<GeneralNotification $read={readBool}>
-			<AviNotification>
-				<AviImage src={avi} alt="profile"></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent>
-				<div>
-					<NameFormat>{name}</NameFormat> has joined your group <GroupFormat>{target}</GroupFormat>
-				</div>
-				<div><DateFormat>{time}</DateFormat></div>
-			</GeneralNotificationContent>
-		</GeneralNotification>
-	)
-}
-
-export const LeftGroup = ({ name, target, time, img, avi, read }) => {
-	let readBool = readStatus(read);
-	return (
-		<GeneralNotification $read={readBool}>
-
-			<AviNotification>
-				<AviImage src={avi} alt="profile"></AviImage>
-			</AviNotification>
-
-			<GeneralNotificationContent>
-				<div>
-					<NameFormat>{name}</NameFormat> left the group <GroupFormat>{target}</GroupFormat>
-				</div>
-				<div><DateFormat>{time}</DateFormat></div>
-			</GeneralNotificationContent>
-
-		</GeneralNotification>
-	)
-}
-
-const components = {
-	LeftGroup: LeftGroup,
-	Reacted: Reacted,
-	Commented: Commented,
-	PrivateMessage: PrivateMessage,
-	JoinedGroup: JoinedGroup,
-	Followed: Followed
-}
-
-export const NotificationList = ({ data, rerender }) => {
-	let MyComponent = components[data.activity]
-
+const HasReacted = ({ data }) => {
 	return (
 		<>
-			<MyComponent data={data} name={data.name} target={data.target} time={data.time} message={data.message} img={data.img} avi={data.avi} read={data.read} />
+			<GeneralNotificationContent>
+				<div>
+					<NameFormat>{data.name}</NameFormat> reacted to your recent post <ReactedPostFormat>{data.target}</ReactedPostFormat>
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+			</GeneralNotificationContent>
 		</>
 	)
 }
+const HasFollowed = ({ data }) => {
+	return (
+		<>
+			<GeneralNotificationContent>
+
+				<div>
+					<NameFormat>{data.name}</NameFormat> followed {data.target}
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+			</GeneralNotificationContent>
+
+		</>
+	)
+}
+const HasPrivateMessaged = ({ data }) => {
+	return (
+		<>
+			<GeneralNotificationContent>
+				<div>
+					<NameFormat>{data.name}</NameFormat> sent {data.target} a private message
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+				<PrivateMessageNotification>
+					{data.message}
+				</PrivateMessageNotification>
+			</GeneralNotificationContent>
+		</>
+	)
+}
+const HasLeft = ({ data }) => {
+	return (
+		<>
+			<GeneralNotificationContent>
+				<div>
+					<NameFormat>{data.name}</NameFormat> left the group <GroupFormat>{data.target}</GroupFormat>
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+			</GeneralNotificationContent>
+		</>
+	)
+}
+const HasJoined = ({ data }) => {
+	return (
+		<>
+			<GeneralNotificationContent>
+				<div>
+					<NameFormat>{data.name}</NameFormat> has joined your group <GroupFormat>{data.target}</GroupFormat>
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+			</GeneralNotificationContent>
+		</>
+	)
+
+}
+const HasCommented = ({ data }) => {
+	return (
+		<GeneralNotificationContent attachedimage>
+			<div>
+				<div>
+					<NameFormat>{data.name}</NameFormat> commented on {data.target}
+				</div>
+				<div><DateFormat>{data.time}</DateFormat></div>
+			</div>
+			<AttachedImage>
+				<AviImage src={data.img} alt=""></AviImage>
+			</AttachedImage>
+		</GeneralNotificationContent >
+	)
+}
+export const clicked = (data, setReadStatus) => {
+	if (data.read === false) {
+		const updatedNotif = { ...data, read: true };
+		axios.put(`${baseUrl}/${data.id}`, updatedNotif)
+			.then(() => setReadStatus(true))
+	}
+	else
+		return;
+}
+
+export const Reacted = ({ data, setRefresh, refresh }) => {
+	const [readStatus, setReadStatus] = useState(data.read);
+	console.log('in reacted', data);
+	console.log('read status', readStatus)
+
+
+	useEffect(() => {
+		setRefresh(refresh + 1);
+	}, [readStatus])
+
+	const MyComponent = activitityType[data.activity]
+
+	return (
+		<GeneralNotification onClick={() => clicked(data, setReadStatus)} $read={readStatus}>
+			<AviNotification>
+				<AviImage src={data.avi} alt="profile" ></AviImage>
+			</AviNotification>
+			<MyComponent data={data} />
+		</GeneralNotification>
+	)
+}
+
+const activitityType = {
+	LeftGroup: HasLeft,
+	Reacted: HasReacted,
+	Commented: HasCommented,
+	PrivateMessage: HasPrivateMessaged,
+	JoinedGroup: HasJoined,
+	Followed: HasFollowed
+}
 
 export const MyRenderer = ({
-	activitiesData, rerender }) => {
+	activitiesData, setRefresh, refresh }) => {
+	console.log(refresh)
 
 	return (
 		<>
-			{activitiesData.map(data => <NotificationList data={data} key={data.notifid} />)}
+			{activitiesData.map(data => <Reacted data={data} key={data.notifid} setRefresh={setRefresh} refresh={refresh} />)}
 		</>
 	)
 }

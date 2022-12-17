@@ -19,6 +19,16 @@ app.get('/api/activities', (request, response) => {
 	Notif.find({}).then(notifs => response.json(notifs))
 })
 
+app.get('/api/activities/:id', (request, response) => {
+	Notif.findById(request.params.id).then(notifs => response.json(notifs))
+})
+
+app.put('/api/activities/updateall', (request, response, next) => {
+
+	Notif.updateMany({}, { $set: { read: true } }).then(() => response.status(200).send())
+
+})
+
 app.put('/api/activities/:id', (request, response, next) => {
 	const body = request.body
 

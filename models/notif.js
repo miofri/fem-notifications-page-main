@@ -11,7 +11,8 @@ const notifSchema = new mongoose.Schema({
 	target: String,
 	message: String,
 	time: String,
-	read: String,
+	read: Boolean,
+	img: String,
 })
 
 //transform _id into id (String) & deletes __v in the returned data (original data stays the same).
