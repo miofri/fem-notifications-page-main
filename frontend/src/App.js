@@ -5,19 +5,19 @@ import { useState, useEffect } from "react";
 import axios from 'axios';
 import { MyRenderer } from './components/notif-activities';
 import './App.css';
-import { HeaderNotification, MainNotificationBox, NameFormat, NotifHeader, NotifHeaderWrapper, NotifNumber } from './App-styles';
+import { HeaderNotification, MainNotificationBox, MarkAsRead, NotifHeader, NotifHeaderWrapper, NotifNumber } from './App-styles';
 
 const baseUrl = 'http://localhost:3001/api/activities'
 
 const MarkAllAsRead = ({ setRefresh, refresh }) => {
 	const markAll = () => {
-		return (axios.put('/api/activities/updateall')
-			.then(() => setRefresh(refresh + 1))
+		return (
+			axios.put(`${baseUrl}/updateall`)
+				.then(() => setRefresh(refresh + 1))
 		)
 	}
 	return (
-
-		<MarkAllAsRead onClick={() => markAll()}>Mark all as read</MarkAllAsRead>
+		<MarkAsRead onClick={() => markAll()}>Mark all as read</MarkAsRead>
 	)
 }
 // small function to count the amount of unread notificiation

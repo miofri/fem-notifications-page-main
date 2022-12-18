@@ -107,7 +107,7 @@ export const Reacted = ({ data, setRefresh, refresh }) => {
 	useEffect(() => {
 		axios.get(`${baseUrl}/${data.id}`)
 			.then(response => {
-				// data = response.data;
+				data = response.data;
 				setReadStatus(data.read)
 			})
 	}, [refresh])

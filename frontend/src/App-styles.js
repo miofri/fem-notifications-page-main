@@ -33,22 +33,25 @@ export const NotifHeaderWrapper = styled.div`
 	flex-direction: row;
 `
 
-export const MarkAllNotifsAsRead = styled.div`
-	color: black;
-	/* &:hover {
-		transform: scale(1.1);
-	} */
-`
-
 /* Actual Notifications */
 
 // for the parent container of all notification (light blue when unread)
 export const MainNotificationBox = styled.div`
 	margin: 48px auto 48px auto;
+	padding-bottom: 5px;
 	border-radius: 18px;
-	height: fit-content;
+	height: 900;
 	width: 730px;
 	background-color: #ffffff;
+`
+
+export const MarkAsRead = styled.div`
+	text-shadow: 2px 2px 5px rgba(163, 155, 155, 0.76);
+	transition: all .1s linear;
+	&:hover {
+		transform: scale(1.1);
+		text-shadow: none;
+	}
 `
 
 // general settings for the container of each notifications; it contains three divs (or more), for example the AviNotification, GeneralNotificationContent, and sometimes PrivateMessageNotification & ImageNotification.
