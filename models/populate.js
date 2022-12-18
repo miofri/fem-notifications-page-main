@@ -85,6 +85,17 @@ let activities = [
 		"time": "2 weeks ago",
 		"img": "",
 		"read": true
+	},
+	{
+		"notifid": 8,
+		"avi": "images/avatar-anna-kim.webp",
+		"name": "Anna Kim",
+		"activity": "LeftGroup",
+		"target": "Chestnut Aadvark Club",
+		"message": "",
+		"time": "2 weeks ago",
+		"img": "",
+		// "read": true
 
 	}
 ];

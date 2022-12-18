@@ -29,6 +29,25 @@ app.put('/api/activities/updateall', (request, response, next) => {
 
 })
 
+// app.post('/api/persons', (request, response, next) => {
+// 	const body = request.body;
+
+// 	if (!body.name && !body.number) {
+// 		return response.status(400).json({
+// 			error: 'content missing'
+// 		});
+// 	}
+
+// 	const newPerson = new Numbers({
+// 		name: body.name,
+// 		number: body.number
+// 	})
+
+// 	newPerson.save()
+// 		.then(savedPerson => response.json(savedPerson))
+// 		.catch(error => next(error))
+// })
+
 app.put('/api/activities/:id', (request, response, next) => {
 	const body = request.body
 

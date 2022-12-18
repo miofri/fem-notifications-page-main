@@ -10,13 +10,14 @@ import { HeaderNotification, MainNotificationBox, NameFormat, NotifHeader, Notif
 const baseUrl = 'http://localhost:3001/api/activities'
 
 const MarkAllAsRead = ({ setRefresh, refresh }) => {
-	const markAll = async () => {
-		await axios.put('/api/activities/updateall');
-		setRefresh(refresh + 1)
+	const markAll = () => {
+		return (axios.put('/api/activities/updateall')
+			.then(() => setRefresh(refresh + 1))
+		)
 	}
-
 	return (
-		<div onClick={() => markAll()}>Mark all as read</div>
+
+		<MarkAllAsRead onClick={() => markAll()}>Mark all as read</MarkAllAsRead>
 	)
 }
 // small function to count the amount of unread notificiation
@@ -30,8 +31,6 @@ const countUnread = ({ activitiesData }) => {
 	return i;
 };
 
-
-
 function App() {
 	const [activitiesData, setActivitiesData] = useState([]);
 	const [refresh, setRefresh] = useState(1);
@@ -39,7 +38,7 @@ function App() {
 	useEffect(() => {
 		axios.get(baseUrl)
 			.then(response => {
-				console.log('promise fulfilled', response.data[0]);
+				console.log('promise fulfilled');
 				return setActivitiesData(response.data);
 			})
 	}, [refresh])
@@ -54,7 +53,7 @@ function App() {
 					<NotifHeader>Notifications</NotifHeader>
 					<NotifNumber>{len}</NotifNumber>
 				</NotifHeaderWrapper>
-				<MarkAllAsRead data={activitiesData} setActivitiesData={setActivitiesData} setRefresh={setRefresh} refresh={refresh} />
+				<MarkAllAsRead setRefresh={setRefresh} refresh={refresh} />
 			</HeaderNotification>
 
 			<MyRenderer activitiesData={activitiesData} setRefresh={setRefresh} refresh={refresh} key={activitiesData.id} />

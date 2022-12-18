@@ -97,13 +97,20 @@ export const clicked = (data, setReadStatus) => {
 
 export const Reacted = ({ data, setRefresh, refresh }) => {
 	const [readStatus, setReadStatus] = useState(data.read);
-	console.log('in reacted', data);
-	console.log('read status', readStatus)
-
+	console.log('read status', data.name, readStatus)
+	console.log(data.read, 'in Reacted')
 
 	useEffect(() => {
 		setRefresh(refresh + 1);
 	}, [readStatus])
+
+	useEffect(() => {
+		axios.get(`${baseUrl}/${data.id}`)
+			.then(response => {
+				// data = response.data;
+				setReadStatus(data.read)
+			})
+	}, [refresh])
 
 	const MyComponent = activitityType[data.activity]
 
@@ -129,6 +136,8 @@ const activitityType = {
 export const MyRenderer = ({
 	activitiesData, setRefresh, refresh }) => {
 	console.log(refresh)
+	console.log(activitiesData[0], 'in MyRenderer')
+
 
 	return (
 		<>
@@ -136,14 +145,3 @@ export const MyRenderer = ({
 		</>
 	)
 }
-
-/*
-<MyRenderer>
-	<NotificationList>
-		<MyComponent e.g.Reacted></MyComponent>
-		<MyComponent e.g.LeftGroup></MyComponent>
-		<MyComponent e.g.Followed></MyComponent>
-	</NotificationList>
-	...
-</MyRenderer>
-*/

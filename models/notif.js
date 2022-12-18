@@ -11,7 +11,10 @@ const notifSchema = new mongoose.Schema({
 	target: String,
 	message: String,
 	time: String,
-	read: Boolean,
+	read: {
+		type: Boolean,
+		default: false,
+	},
 	img: String,
 })
 

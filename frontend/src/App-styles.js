@@ -27,13 +27,18 @@ export const NotifNumber = styled(NotifHeader)`
 	padding-top: 4px;
 	border-radius: 15%;
 `
-// parent of "Notificatins"/NotifHeader & NotifNumber
+// parent of "Notifications"/NotifHeader & NotifNumber
 export const NotifHeaderWrapper = styled.div`
 	display: flex;
 	flex-direction: row;
 `
 
-
+export const MarkAllNotifsAsRead = styled.div`
+	color: black;
+	/* &:hover {
+		transform: scale(1.1);
+	} */
+`
 
 /* Actual Notifications */
 
@@ -41,7 +46,7 @@ export const NotifHeaderWrapper = styled.div`
 export const MainNotificationBox = styled.div`
 	margin: 48px auto 48px auto;
 	border-radius: 18px;
-	height: 900px;
+	height: fit-content;
 	width: 730px;
 	background-color: #ffffff;
 `
